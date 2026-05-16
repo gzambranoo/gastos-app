@@ -98,18 +98,18 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
   const recentTxs = [...transactions].slice(0, 5)
 
   return (
-    <div style={{backgroundColor:'#020617',minHeight:'100vh',paddingBottom:'80px',maxWidth:'480px',margin:'0 auto'}}>
+    <div style={{backgroundColor:'var(--bg)',minHeight:'100vh',paddingBottom:'80px',maxWidth:'480px',margin:'0 auto'}}>
 
       {/* Header */}
       <div style={{padding:'20px 20px 12px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
         <div>
-          <p style={{color:'#64748b',fontSize:'13px',margin:'0'}}>Bienvenido</p>
-          <p style={{color:'#ffffff',fontSize:'16px',fontWeight:'600',margin:'4px 0 0'}}>{user.email?.split('@')[0]}</p>
+          <p style={{color:'var(--text3)',fontSize:'13px',margin:'0'}}>Bienvenido</p>
+          <p style={{color:'var(--text)',fontSize:'16px',fontWeight:'600',margin:'4px 0 0'}}>{user.email?.split('@')[0]}</p>
         </div>
         <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
           <button
             onClick={handleLogout}
-            style={{fontSize:'11px',color:'#475569',background:'none',border:'1px solid #1e293b',borderRadius:'8px',padding:'5px 10px',cursor:'pointer'}}
+            style={{fontSize:'11px',color:'var(--text4)',background:'none',border:'1px solid #1e293b',borderRadius:'8px',padding:'5px 10px',cursor:'pointer'}}
           >
             Salir
           </button>
@@ -121,63 +121,63 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
         {(['semanal','mensual','anual'] as const).map(p => (
           <button key={p} onClick={() => setPeriod(p)}
             style={{flex:1,padding:'7px 0',borderRadius:'20px',fontSize:'11px',fontWeight:'500',border:'none',cursor:'pointer',
-              backgroundColor: period === p ? '#0ea5e9' : '#0f172a',
-              color: period === p ? '#ffffff' : '#475569'}}>
+              backgroundColor: period === p ? '#0ea5e9' : 'var(--bg2)',
+              color: period === p ? 'var(--text)' : 'var(--text4)'}}>
             {p.charAt(0).toUpperCase() + p.slice(1)}
           </button>
         ))}
       </div>
 
       {/* Tarjeta principal */}
-      <div style={{margin:'0 20px 16px',backgroundColor:'#0f172a',borderRadius:'20px',padding:'20px',border:'1px solid #1e293b'}}>
+      <div style={{margin:'0 20px 16px',backgroundColor:'var(--bg2)',borderRadius:'20px',padding:'20px',border:'1px solid #1e293b'}}>
 
         {/* Toggle saldo / presupuesto */}
-        <div style={{display:'flex',backgroundColor:'#1e293b',borderRadius:'10px',padding:'3px',marginBottom:'16px'}}>
+        <div style={{display:'flex',backgroundColor:'var(--bg3)',borderRadius:'10px',padding:'3px',marginBottom:'16px'}}>
           <button onClick={() => setViewMode('saldo')}
             style={{flex:1,padding:'6px',borderRadius:'7px',fontSize:'11px',fontWeight:'500',border:'none',cursor:'pointer',
               backgroundColor: viewMode==='saldo' ? '#0369a1' : 'transparent',
-              color: viewMode==='saldo' ? '#ffffff' : '#475569'}}>
+              color: viewMode==='saldo' ? 'var(--text)' : 'var(--text4)'}}>
             💰 Saldo real
           </button>
           <button onClick={() => setViewMode('presupuesto')}
             style={{flex:1,padding:'6px',borderRadius:'7px',fontSize:'11px',fontWeight:'500',border:'none',cursor:'pointer',
               backgroundColor: viewMode==='presupuesto' ? '#0369a1' : 'transparent',
-              color: viewMode==='presupuesto' ? '#ffffff' : '#475569'}}>
+              color: viewMode==='presupuesto' ? 'var(--text)' : 'var(--text4)'}}>
             🎯 Presupuesto
           </button>
         </div>
 
         {viewMode === 'saldo' ? (
           <div>
-            <p style={{color:'#64748b',fontSize:'12px',margin:'0 0 4px'}}>{periodLabel} — Saldo disponible</p>
+            <p style={{color:'var(--text3)',fontSize:'12px',margin:'0 0 4px'}}>{periodLabel} — Saldo disponible</p>
             <p style={{color: saldoReal >= 0 ? '#34d399' : '#f87171',fontSize:'32px',fontWeight:'700',margin:'0 0 16px'}}>
               {formatCLP(saldoReal)}
             </p>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px'}}>
               <div style={{backgroundColor:'#0f2820',borderRadius:'12px',padding:'12px'}}>
-                <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 3px'}}>Ingresos</p>
+                <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 3px'}}>Ingresos</p>
                 <p style={{color:'#34d399',fontSize:'16px',fontWeight:'600',margin:'0'}}>{formatCLP(totalIngresos)}</p>
               </div>
               <div style={{backgroundColor:'#1f1018',borderRadius:'12px',padding:'12px'}}>
-                <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 3px'}}>Gastos</p>
+                <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 3px'}}>Gastos</p>
                 <p style={{color:'#f87171',fontSize:'16px',fontWeight:'600',margin:'0'}}>{formatCLP(totalGastos)}</p>
               </div>
             </div>
           </div>
         ) : (
           <div>
-            <p style={{color:'#64748b',fontSize:'12px',margin:'0 0 4px'}}>{periodLabel} — Disponible del presupuesto</p>
+            <p style={{color:'var(--text3)',fontSize:'12px',margin:'0 0 4px'}}>{periodLabel} — Disponible del presupuesto</p>
             <p style={{color: disponible >= 0 ? '#38bdf8' : '#f87171',fontSize:'32px',fontWeight:'700',margin:'0 0 4px'}}>
               {formatCLP(disponible)}
             </p>
-            <p style={{color:'#475569',fontSize:'11px',margin:'0 0 12px'}}>
+            <p style={{color:'var(--text4)',fontSize:'11px',margin:'0 0 12px'}}>
               Gastado {formatCLP(totalGastos)} de {formatCLP(presupuesto)}
             </p>
-            <div style={{backgroundColor:'#1e293b',borderRadius:'6px',height:'8px',marginBottom:'6px'}}>
+            <div style={{backgroundColor:'var(--bg3)',borderRadius:'6px',height:'8px',marginBottom:'6px'}}>
               <div style={{backgroundColor: porcentajeUsado > 90 ? '#f87171' : '#0ea5e9',borderRadius:'6px',height:'8px',width:`${porcentajeUsado}%`,transition:'width 0.3s'}}/>
             </div>
             <div style={{display:'flex',justifyContent:'space-between'}}>
-              <span style={{fontSize:'10px',color:'#475569'}}>{Math.round(porcentajeUsado)}% usado</span>
+              <span style={{fontSize:'10px',color:'var(--text4)'}}>{Math.round(porcentajeUsado)}% usado</span>
               {presupuesto === 0 && (
                 <button onClick={() => router.push('/configuracion')}
                   style={{fontSize:'10px',color:'#0ea5e9',background:'none',border:'none',cursor:'pointer',padding:'0'}}>
@@ -191,23 +191,23 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
 
       {/* KPIs */}
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px',padding:'0 20px 16px'}}>
-        <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
-          <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 4px'}}>Deudas activas</p>
+        <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
+          <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 4px'}}>Deudas activas</p>
           <p style={{color:'#fbbf24',fontSize:'18px',fontWeight:'600',margin:'0'}}>{formatCLP(totalDeudas)}</p>
-          <p style={{color:'#475569',fontSize:'9px',margin:'3px 0 0'}}>{debts.length} pendientes</p>
+          <p style={{color:'var(--text4)',fontSize:'9px',margin:'3px 0 0'}}>{debts.length} pendientes</p>
         </div>
-        <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
-          <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 4px'}}>Transacciones</p>
+        <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
+          <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 4px'}}>Transacciones</p>
           <p style={{color:'#a78bfa',fontSize:'18px',fontWeight:'600',margin:'0'}}>{visible.length}</p>
-          <p style={{color:'#475569',fontSize:'9px',margin:'3px 0 0'}}>{periodLabel}</p>
+          <p style={{color:'var(--text4)',fontSize:'9px',margin:'3px 0 0'}}>{periodLabel}</p>
         </div>
       </div>
 
       {/* Toggle gastos fijos */}
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 20px 12px'}}>
-        <span style={{fontSize:'12px',color:'#64748b'}}>Ocultar gastos fijos</span>
+        <span style={{fontSize:'12px',color:'var(--text3)'}}>Ocultar gastos fijos</span>
         <div onClick={() => setHideFixed(!hideFixed)}
-          style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: hideFixed ? '#0ea5e9' : '#1e293b',position:'relative',cursor:'pointer',transition:'background 0.2s'}}>
+          style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: hideFixed ? '#0ea5e9' : 'var(--bg3)',position:'relative',cursor:'pointer',transition:'background 0.2s'}}>
           <div style={{width:'18px',height:'18px',borderRadius:'50%',backgroundColor:'#fff',position:'absolute',top:'2px',left: hideFixed ? '20px' : '2px',transition:'left 0.2s'}}/>
         </div>
       </div>
@@ -215,7 +215,7 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
       {/* Últimos movimientos */}
       <div style={{padding:'0 20px'}}>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}}>
-          <p style={{color:'#94a3b8',fontSize:'12px',margin:'0',textTransform:'uppercase',letterSpacing:'0.5px'}}>Últimos movimientos</p>
+          <p style={{color:'var(--text2)',fontSize:'12px',margin:'0',textTransform:'uppercase',letterSpacing:'0.5px'}}>Últimos movimientos</p>
           <button onClick={() => router.push('/historial')}
             style={{fontSize:'11px',color:'#0ea5e9',background:'none',border:'none',cursor:'pointer',padding:'0'}}>
             Ver todos
@@ -224,7 +224,7 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
 
         {recentTxs.length === 0 ? (
           <div style={{textAlign:'center',padding:'32px 0'}}>
-            <p style={{color:'#475569',fontSize:'13px'}}>Aún no hay movimientos</p>
+            <p style={{color:'var(--text4)',fontSize:'13px'}}>Aún no hay movimientos</p>
             <button onClick={() => router.push('/agregar')}
               style={{marginTop:'12px',backgroundColor:'#0ea5e9',color:'#fff',border:'none',borderRadius:'10px',padding:'10px 20px',fontSize:'13px',cursor:'pointer'}}>
               Agregar primer gasto
@@ -237,8 +237,8 @@ export default function DashboardClient({ user, transactions, budgets, debts, cu
                 {tx.type === 'ingreso' ? '💰' : '🛒'}
               </div>
               <div style={{flex:1}}>
-                <p style={{color:'#e2e8f0',fontSize:'13px',margin:'0',fontWeight:'500'}}>{tx.description}</p>
-                <p style={{color:'#475569',fontSize:'11px',margin:'2px 0 0'}}>{new Date(tx.date).toLocaleDateString('es-CL')}{tx.is_fixed ? ' · Fijo' : ''}</p>
+                <p style={{color:'var(--text)',fontSize:'13px',margin:'0',fontWeight:'500'}}>{tx.description}</p>
+                <p style={{color:'var(--text4)',fontSize:'11px',margin:'2px 0 0'}}>{new Date(tx.date).toLocaleDateString('es-CL')}{tx.is_fixed ? ' · Fijo' : ''}</p>
               </div>
               <p style={{color: tx.type === 'ingreso' ? '#34d399' : '#f87171',fontSize:'14px',fontWeight:'600',margin:'0'}}>
                 {tx.type === 'ingreso' ? '+' : '-'}{formatCLP(tx.amount)}

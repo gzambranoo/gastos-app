@@ -76,11 +76,23 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
 
   const [darkMode, setDarkMode] = useState(false)
 
-  function toggleDark() {
-    const isDark = document.documentElement.classList.toggle('dark')
-    setDarkMode(isDark)
-    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+ function toggleDark() {
+  const html = document.documentElement
+  const isCurrentlyDark = html.classList.contains('dark')
+  if (isCurrentlyDark) {
+    html.classList.remove('dark')
+    html.classList.add('light')
+    html.style.backgroundColor = '#f8fafc'
+    localStorage.setItem('theme', 'light')
+    setDarkMode(false)
+  } else {
+    html.classList.remove('light')
+    html.classList.add('dark')
+    html.style.backgroundColor = 'var(--bg)'
+    localStorage.setItem('theme', 'dark')
+    setDarkMode(true)
   }
+}
 
   async function saveBudget(period: 'semanal' | 'mensual' | 'anual', amount: string) {
     if (!amount) return
@@ -164,23 +176,23 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
     setMethods(methods.filter(m => m.id !== id))
   }
 
-  const inputStyle = { width:'100%', backgroundColor:'#1e293b', border:'1px solid #334155', borderRadius:'10px', padding:'10px 14px', color:'#ffffff', fontSize:'13px', outline:'none', boxSizing:'border-box' as const }
+  const inputStyle = { width:'100%', backgroundColor:'var(--bg3)', border:'1px solid #334155', borderRadius:'10px', padding:'10px 14px', color:'var(--text)', fontSize:'13px', outline:'none', boxSizing:'border-box' as const }
   const btnStyle = { backgroundColor:'#0ea5e9', color:'#fff', border:'none', borderRadius:'10px', padding:'10px 16px', fontSize:'13px', fontWeight:'600' as const, cursor:'pointer', whiteSpace:'nowrap' as const }
-  const tabStyle = (active: boolean) => ({ flex:1, padding:'8px', borderRadius:'8px', fontSize:'11px', fontWeight:'500' as const, border:'none', cursor:'pointer', backgroundColor: active ? '#0ea5e9' : 'transparent', color: active ? '#fff' : '#475569' })
+  const tabStyle = (active: boolean) => ({ flex:1, padding:'8px', borderRadius:'8px', fontSize:'11px', fontWeight:'500' as const, border:'none', cursor:'pointer', backgroundColor: active ? '#0ea5e9' : 'transparent', color: active ? '#fff' : 'var(--text4)' })
 
   return (
-    <div style={{backgroundColor:'#020617',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
+    <div style={{backgroundColor:'var(--bg)',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
       <div style={{padding:'20px 20px 12px',display:'flex',alignItems:'center',gap:'12px'}}>
-        <h1 style={{color:'#ffffff',fontSize:'18px',fontWeight:'600',margin:'0'}}>Configuración</h1>
+        <h1 style={{color:'var(--text)',fontSize:'18px',fontWeight:'600',margin:'0'}}>Configuración</h1>
         <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'8px'}}>
-          <span style={{fontSize:'12px',color:'#64748b'}}>{darkMode ? '🌙' : '☀️'}</span>
-          <div onClick={toggleDark} style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: darkMode ? '#0ea5e9' : '#475569',position:'relative',cursor:'pointer'}}>
+          <span style={{fontSize:'12px',color:'var(--text3)'}}>{darkMode ? '🌙' : '☀️'}</span>
+          <div onClick={toggleDark} style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: darkMode ? '#0ea5e9' : 'var(--text4)',position:'relative',cursor:'pointer'}}>
             <div style={{width:'18px',height:'18px',borderRadius:'50%',backgroundColor:'#fff',position:'absolute',top:'2px',left: darkMode ? '20px' : '2px',transition:'left 0.2s'}}/>
           </div>
         </div>
       </div>
 
-      <div style={{display:'flex',backgroundColor:'#0f172a',margin:'0 20px 16px',borderRadius:'12px',padding:'4px',border:'1px solid #1e293b'}}>
+      <div style={{display:'flex',backgroundColor:'var(--bg2)',margin:'0 20px 16px',borderRadius:'12px',padding:'4px',border:'1px solid #1e293b'}}>
         <button style={tabStyle(tab==='presupuesto')} onClick={() => setTab('presupuesto')}>💰 Presupuesto</button>
         <button style={tabStyle(tab==='categorias')} onClick={() => setTab('categorias')}>🏷️ Categorías</button>
         <button style={tabStyle(tab==='bancos')} onClick={() => setTab('bancos')}>🏦 Bancos</button>
@@ -188,7 +200,7 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
       </div>
 
       {message && (
-        <div style={{margin:'0 20px 12px',backgroundColor:'#0f172a',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color:'#34d399',border:'1px solid #1e293b'}}>
+        <div style={{margin:'0 20px 12px',backgroundColor:'var(--bg2)',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color:'#34d399',border:'1px solid #1e293b'}}>
           {message}
         </div>
       )}
@@ -198,8 +210,8 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
         {tab === 'presupuesto' && (
           <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
             {([['semanal','Semanal',budgetSemanal,setBudgetSemanal],['mensual','Mensual',budgetMensual,setBudgetMensual],['anual','Anual',budgetAnual,setBudgetAnual]] as const).map(([period, label, val, setVal]) => (
-              <div key={period} style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b'}}>
-                <p style={{color:'#94a3b8',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>{label}</p>
+              <div key={period} style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b'}}>
+                <p style={{color:'var(--text2)',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>{label}</p>
                 <div style={{display:'flex',gap:'8px'}}>
                   <input style={inputStyle} type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="Monto en pesos" />
                   <button style={btnStyle} onClick={() => saveBudget(period, val)} disabled={loading}>Guardar</button>
@@ -211,12 +223,12 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
 
         {tab === 'categorias' && (
           <div>
-            <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
-              <p style={{color:'#94a3b8',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Nueva categoría</p>
+            <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
+              <p style={{color:'var(--text2)',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Nueva categoría</p>
               <div style={{display:'flex',gap:'6px',flexWrap:'wrap',marginBottom:'10px'}}>
                 {ICONS.map(icon => (
                   <button key={icon} onClick={() => setNewCatIcon(icon)}
-                    style={{fontSize:'20px',padding:'4px',background: newCatIcon===icon ? '#1e293b' : 'none',border: newCatIcon===icon ? '1px solid #0ea5e9' : '1px solid transparent',borderRadius:'8px',cursor:'pointer'}}>
+                    style={{fontSize:'20px',padding:'4px',background: newCatIcon===icon ? 'var(--bg3)' : 'none',border: newCatIcon===icon ? '1px solid #0ea5e9' : '1px solid transparent',borderRadius:'8px',cursor:'pointer'}}>
                     {icon}
                   </button>
                 ))}
@@ -227,8 +239,8 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
               </div>
             </div>
 
-            <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
-              <p style={{color:'#94a3b8',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Nueva subcategoría</p>
+            <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
+              <p style={{color:'var(--text2)',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Nueva subcategoría</p>
               <select style={{...inputStyle,marginBottom:'8px'}} value={selectedCatId} onChange={e => setSelectedCatId(e.target.value)}>
                 <option value="">Selecciona categoría</option>
                 {cats.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
@@ -241,15 +253,15 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
 
             <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
               {cats.map(cat => (
-                <div key={cat.id} style={{backgroundColor:'#0f172a',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b'}}>
+                <div key={cat.id} style={{backgroundColor:'var(--bg2)',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b'}}>
                   <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <span style={{color:'#e2e8f0',fontSize:'14px'}}>{cat.icon} {cat.name}</span>
+                    <span style={{color:'var(--text)',fontSize:'14px'}}>{cat.icon} {cat.name}</span>
                     <button onClick={() => deleteCategory(cat.id)} style={{background:'none',border:'none',color:'#ef4444',cursor:'pointer',fontSize:'16px'}}>✕</button>
                   </div>
                   {cat.subcategories?.length > 0 && (
                     <div style={{marginTop:'6px',display:'flex',flexWrap:'wrap',gap:'4px'}}>
                       {cat.subcategories.map(s => (
-                        <span key={s.id} style={{fontSize:'11px',color:'#64748b',backgroundColor:'#1e293b',padding:'2px 8px',borderRadius:'8px'}}>{s.name}</span>
+                        <span key={s.id} style={{fontSize:'11px',color:'var(--text3)',backgroundColor:'var(--bg3)',padding:'2px 8px',borderRadius:'8px'}}>{s.name}</span>
                       ))}
                     </div>
                   )}
@@ -261,8 +273,8 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
 
         {tab === 'bancos' && (
           <div>
-            <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
-              <p style={{color:'#94a3b8',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Agregar banco</p>
+            <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
+              <p style={{color:'var(--text2)',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Agregar banco</p>
               <div style={{display:'flex',gap:'8px'}}>
                 <input style={inputStyle} value={newBankName} onChange={e => setNewBankName(e.target.value)} placeholder="Nombre del banco" />
                 <button style={btnStyle} onClick={addBank} disabled={loading}>+ Agregar</button>
@@ -270,8 +282,8 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
               {bnks.map(bank => (
-                <div key={bank.id} style={{backgroundColor:'#0f172a',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <span style={{color:'#e2e8f0',fontSize:'14px'}}>🏦 {bank.name}</span>
+                <div key={bank.id} style={{backgroundColor:'var(--bg2)',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                  <span style={{color:'var(--text)',fontSize:'14px'}}>🏦 {bank.name}</span>
                   <button onClick={() => deleteBank(bank.id)} style={{background:'none',border:'none',color:'#ef4444',cursor:'pointer',fontSize:'16px'}}>✕</button>
                 </div>
               ))}
@@ -281,8 +293,8 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
 
         {tab === 'medios' && (
           <div>
-            <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
-              <p style={{color:'#94a3b8',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Agregar medio de pago</p>
+            <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'16px',border:'1px solid #1e293b',marginBottom:'12px'}}>
+              <p style={{color:'var(--text2)',fontSize:'12px',margin:'0 0 10px',fontWeight:'600'}}>Agregar medio de pago</p>
               <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
                 <input style={inputStyle} value={newMethodName} onChange={e => setNewMethodName(e.target.value)} placeholder="Nombre (ej: Visa BCI)" />
                 <select style={inputStyle} value={newMethodType} onChange={e => setNewMethodType(e.target.value)}>
@@ -298,10 +310,10 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
               {methods.map(m => (
-                <div key={m.id} style={{backgroundColor:'#0f172a',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <div key={m.id} style={{backgroundColor:'var(--bg2)',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                   <div>
-                    <p style={{color:'#e2e8f0',fontSize:'13px',margin:'0'}}>💳 {m.name}</p>
-                    <p style={{color:'#475569',fontSize:'11px',margin:'2px 0 0'}}>{m.type}{m.banks ? ` · ${m.banks.name}` : ''}{m.last_four ? ` · ****${m.last_four}` : ''}</p>
+                    <p style={{color:'var(--text)',fontSize:'13px',margin:'0'}}>💳 {m.name}</p>
+                    <p style={{color:'var(--text4)',fontSize:'11px',margin:'2px 0 0'}}>{m.type}{m.banks ? ` · ${m.banks.name}` : ''}{m.last_four ? ` · ****${m.last_four}` : ''}</p>
                   </div>
                   <button onClick={() => deleteMethod(m.id)} style={{background:'none',border:'none',color:'#ef4444',cursor:'pointer',fontSize:'16px'}}>✕</button>
                 </div>

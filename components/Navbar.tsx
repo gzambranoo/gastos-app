@@ -15,7 +15,7 @@ export default function Navbar() {
   ]
 
   return (
-    <nav style={{position:'fixed',bottom:'0',left:'0',right:'0',backgroundColor:'#0f172a',borderTop:'1px solid #1e293b',display:'flex',justifyContent:'space-around',alignItems:'center',padding:'8px 0 12px',zIndex:50}}>
+    <nav style={{position:'fixed',bottom:'0',left:'0',right:'0',backgroundColor:'var(--bg2)',borderTop:'1px solid var(--border)',display:'flex',justifyContent:'space-around',alignItems:'center',padding:'8px 0 12px',zIndex:50}}>
       {links.map(link => {
         const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
         return (
@@ -25,7 +25,7 @@ export default function Navbar() {
             style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'3px',background:'none',border:'none',cursor:'pointer',padding:'4px 12px'}}
           >
             <span style={{fontSize:'20px'}}>{link.icon}</span>
-            <span style={{fontSize:'10px',color: isActive ? '#0ea5e9' : '#475569',fontWeight: isActive ? '600' : '400'}}>
+            <span style={{fontSize:'10px',color: isActive ? '#0ea5e9' : 'var(--text4)',fontWeight: isActive ? '600' : '400'}}>
               {link.label}
             </span>
             {isActive && (

@@ -147,11 +147,11 @@ export default function AgregarClient({ userId, categories, paymentMethods }: Pr
 
   const inputStyle = {
     width: '100%',
-    backgroundColor: '#1e293b',
+    backgroundColor: 'var(--bg3)',
     border: '1px solid #334155',
     borderRadius: '12px',
     padding: '11px 14px',
-    color: '#ffffff',
+    color: 'var(--text)',
     fontSize: '14px',
     outline: 'none',
     boxSizing: 'border-box' as const,
@@ -160,54 +160,54 @@ export default function AgregarClient({ userId, categories, paymentMethods }: Pr
   const labelStyle = {
     display: 'block',
     fontSize: '11px',
-    color: '#64748b',
+    color: 'var(--text3)',
     marginBottom: '6px',
     textTransform: 'uppercase' as const,
     letterSpacing: '0.4px',
   }
 
   return (
-    <div style={{backgroundColor:'#020617',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
+    <div style={{backgroundColor:'var(--bg)',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
 
       {/* Header */}
       <div style={{padding:'20px 20px 12px',display:'flex',alignItems:'center',gap:'12px'}}>
         <button onClick={() => router.back()}
-          style={{background:'none',border:'none',color:'#64748b',fontSize:'20px',cursor:'pointer',padding:'0'}}>
+          style={{background:'none',border:'none',color:'var(--text3)',fontSize:'20px',cursor:'pointer',padding:'0'}}>
           ←
         </button>
-        <h1 style={{color:'#ffffff',fontSize:'18px',fontWeight:'600',margin:'0'}}>Nuevo registro</h1>
+        <h1 style={{color:'var(--text)',fontSize:'18px',fontWeight:'600',margin:'0'}}>Nuevo registro</h1>
       </div>
 
       {/* Toggle gasto / ingreso */}
-      <div style={{display:'flex',backgroundColor:'#0f172a',margin:'0 20px 16px',borderRadius:'14px',padding:'4px',border:'1px solid #1e293b'}}>
+      <div style={{display:'flex',backgroundColor:'var(--bg2)',margin:'0 20px 16px',borderRadius:'14px',padding:'4px',border:'1px solid #1e293b'}}>
         <button onClick={() => setType('gasto')}
           style={{flex:1,padding:'10px',borderRadius:'10px',fontSize:'13px',fontWeight:'600',border:'none',cursor:'pointer',
             backgroundColor: type==='gasto' ? '#dc2626' : 'transparent',
-            color: type==='gasto' ? '#ffffff' : '#475569'}}>
+            color: type==='gasto' ? 'var(--text)' : 'var(--text4)'}}>
           🔴 Gasto
         </button>
         <button onClick={() => setType('ingreso')}
           style={{flex:1,padding:'10px',borderRadius:'10px',fontSize:'13px',fontWeight:'600',border:'none',cursor:'pointer',
             backgroundColor: type==='ingreso' ? '#16a34a' : 'transparent',
-            color: type==='ingreso' ? '#ffffff' : '#475569'}}>
+            color: type==='ingreso' ? 'var(--text)' : 'var(--text4)'}}>
           🟢 Ingreso
         </button>
       </div>
 
       {/* Zona de imagen */}
       <div style={{margin:'0 20px 16px'}}>
-        <label style={{display:'block',backgroundColor:'#0f172a',border:'2px dashed #1e293b',borderRadius:'14px',padding:'20px',textAlign:'center',cursor:'pointer'}}>
+        <label style={{display:'block',backgroundColor:'var(--bg2)',border:'2px dashed #1e293b',borderRadius:'14px',padding:'20px',textAlign:'center',cursor:'pointer'}}>
           <input type="file" accept="image/*" onChange={handleImageUpload} style={{display:'none'}} />
           <div style={{fontSize:'28px',marginBottom:'6px'}}>📷</div>
           <p style={{color:'#38bdf8',fontSize:'13px',margin:'0',fontWeight:'500'}}>
             {analyzing ? 'Analizando...' : imageFile ? imageFile.name : 'Escanear boleta o correo'}
           </p>
-          <p style={{color:'#475569',fontSize:'11px',margin:'4px 0 0'}}>IA detectará categoría y monto</p>
+          <p style={{color:'var(--text4)',fontSize:'11px',margin:'4px 0 0'}}>IA detectará categoría y monto</p>
         </label>
       </div>
 
       {message && (
-        <div style={{margin:'0 20px 12px',backgroundColor:'#0f172a',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color: message.startsWith('✓') ? '#34d399' : '#38bdf8',border:'1px solid #1e293b'}}>
+        <div style={{margin:'0 20px 12px',backgroundColor:'var(--bg2)',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color: message.startsWith('✓') ? '#34d399' : '#38bdf8',border:'1px solid #1e293b'}}>
           {message}
         </div>
       )}
@@ -259,11 +259,11 @@ export default function AgregarClient({ userId, categories, paymentMethods }: Pr
         </div>
 
         {/* Cuotas */}
-        <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'14px',marginBottom:'14px',border:'1px solid #1e293b'}}>
+        <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'14px',marginBottom:'14px',border:'1px solid #1e293b'}}>
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom: hasInstallments ? '12px' : '0'}}>
-            <span style={{fontSize:'13px',color:'#94a3b8'}}>💳 Pagar en cuotas</span>
+            <span style={{fontSize:'13px',color:'var(--text2)'}}>💳 Pagar en cuotas</span>
             <div onClick={() => setHasInstallments(!hasInstallments)}
-              style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: hasInstallments ? '#0ea5e9' : '#1e293b',position:'relative',cursor:'pointer',transition:'background 0.2s'}}>
+              style={{width:'40px',height:'22px',borderRadius:'11px',backgroundColor: hasInstallments ? '#0ea5e9' : 'var(--bg3)',position:'relative',cursor:'pointer',transition:'background 0.2s'}}>
               <div style={{width:'18px',height:'18px',borderRadius:'50%',backgroundColor:'#fff',position:'absolute',top:'2px',left: hasInstallments ? '20px' : '2px',transition:'left 0.2s'}}/>
             </div>
           </div>
@@ -284,10 +284,10 @@ export default function AgregarClient({ userId, categories, paymentMethods }: Pr
         </div>
 
         {/* Gasto fijo */}
-        <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'14px',backgroundColor:'#0f172a',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b'}}>
+        <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'14px',backgroundColor:'var(--bg2)',borderRadius:'12px',padding:'12px 14px',border:'1px solid #1e293b'}}>
           <input type="checkbox" id="fixed" checked={isFixed} onChange={e => setIsFixed(e.target.checked)}
             style={{width:'18px',height:'18px',accentColor:'#0ea5e9',cursor:'pointer'}} />
-          <label htmlFor="fixed" style={{fontSize:'13px',color:'#94a3b8',cursor:'pointer'}}>
+          <label htmlFor="fixed" style={{fontSize:'13px',color:'var(--text2)',cursor:'pointer'}}>
             Marcar como gasto/ingreso fijo o recurrente
           </label>
         </div>

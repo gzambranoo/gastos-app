@@ -75,22 +75,22 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
     }
   }
 
-  const inputStyle = { backgroundColor:'#1e293b', border:'1px solid #334155', borderRadius:'10px', padding:'8px 12px', color:'#ffffff', fontSize:'12px', outline:'none' }
+  const inputStyle = { backgroundColor:'var(--bg3)', border:'1px solid #334155', borderRadius:'10px', padding:'8px 12px', color:'var(--text)', fontSize:'12px', outline:'none' }
 
   return (
-    <div style={{backgroundColor:'#020617',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
+    <div style={{backgroundColor:'var(--bg)',minHeight:'100vh',paddingBottom:'90px',maxWidth:'480px',margin:'0 auto'}}>
 
       <div style={{padding:'20px 20px 12px'}}>
-        <h1 style={{color:'#ffffff',fontSize:'18px',fontWeight:'600',margin:'0 0 16px'}}>Deudas y cuotas</h1>
+        <h1 style={{color:'var(--text)',fontSize:'18px',fontWeight:'600',margin:'0 0 16px'}}>Deudas y cuotas</h1>
 
         {/* KPIs */}
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px',marginBottom:'16px'}}>
-          <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
-            <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 4px'}}>Total deuda restante</p>
+          <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
+            <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 4px'}}>Total deuda restante</p>
             <p style={{color:'#f87171',fontSize:'18px',fontWeight:'700',margin:'0'}}>{formatCLP(totalDeuda)}</p>
           </div>
-          <div style={{backgroundColor:'#0f172a',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
-            <p style={{color:'#64748b',fontSize:'10px',margin:'0 0 4px'}}>Pago mensual total</p>
+          <div style={{backgroundColor:'var(--bg2)',borderRadius:'14px',padding:'14px',border:'1px solid #1e293b'}}>
+            <p style={{color:'var(--text3)',fontSize:'10px',margin:'0 0 4px'}}>Pago mensual total</p>
             <p style={{color:'#fbbf24',fontSize:'18px',fontWeight:'700',margin:'0'}}>{formatCLP(totalMensual)}</p>
           </div>
         </div>
@@ -100,8 +100,8 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
           {(['activas','todas','pagadas'] as const).map(s => (
             <button key={s} onClick={() => setFilterStatus(s)}
               style={{padding:'5px 12px',borderRadius:'20px',fontSize:'11px',border:'none',cursor:'pointer',
-                backgroundColor: filterStatus===s ? '#0ea5e9' : '#0f172a',
-                color: filterStatus===s ? '#fff' : '#475569'}}>
+                backgroundColor: filterStatus===s ? '#0ea5e9' : 'var(--bg2)',
+                color: filterStatus===s ? '#fff' : 'var(--text4)'}}>
               {s.charAt(0).toUpperCase()+s.slice(1)}
             </button>
           ))}
@@ -114,7 +114,7 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
       </div>
 
       {message && (
-        <div style={{margin:'0 20px 12px',backgroundColor:'#0f172a',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color:'#34d399',border:'1px solid #1e293b'}}>
+        <div style={{margin:'0 20px 12px',backgroundColor:'var(--bg2)',borderRadius:'10px',padding:'10px 14px',fontSize:'13px',color:'#34d399',border:'1px solid #1e293b'}}>
           {message}
         </div>
       )}
@@ -123,7 +123,7 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
         {filtered.length === 0 ? (
           <div style={{textAlign:'center',padding:'40px 0'}}>
             <p style={{fontSize:'32px',margin:'0 0 12px'}}>🎉</p>
-            <p style={{color:'#475569',fontSize:'14px'}}>No hay deudas en este filtro</p>
+            <p style={{color:'var(--text4)',fontSize:'14px'}}>No hay deudas en este filtro</p>
           </div>
         ) : (
           filtered.map(debt => {
@@ -134,13 +134,13 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
             const isUrgent = days !== null && days <= 5 && !isPaid
 
             return (
-              <div key={debt.id} style={{backgroundColor:'#0f172a',borderRadius:'16px',padding:'16px',border:`1px solid ${isUrgent ? '#ef4444' : '#1e293b'}`,marginBottom:'12px'}}>
+              <div key={debt.id} style={{backgroundColor:'var(--bg2)',borderRadius:'16px',padding:'16px',border:`1px solid ${isUrgent ? '#ef4444' : 'var(--bg3)'}`,marginBottom:'12px'}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'10px'}}>
                   <div style={{flex:1}}>
-                    <p style={{color:'#e2e8f0',fontSize:'14px',fontWeight:'600',margin:'0 0 3px'}}>
+                    <p style={{color:'var(--text)',fontSize:'14px',fontWeight:'600',margin:'0 0 3px'}}>
                       {debt.categories?.icon || '💳'} {debt.description}
                     </p>
-                    <p style={{color:'#475569',fontSize:'11px',margin:'0'}}>
+                    <p style={{color:'var(--text4)',fontSize:'11px',margin:'0'}}>
                       {debt.payment_methods?.name || 'Sin medio'}
                       {debt.payment_methods?.banks ? ` · ${debt.payment_methods.banks.name}` : ''}
                     </p>
@@ -154,14 +154,14 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
                   )}
                 </div>
 
-                <div style={{backgroundColor:'#1e293b',borderRadius:'4px',height:'6px',marginBottom:'8px'}}>
+                <div style={{backgroundColor:'var(--bg3)',borderRadius:'4px',height:'6px',marginBottom:'8px'}}>
                   <div style={{backgroundColor: isPaid ? '#34d399' : '#0ea5e9',borderRadius:'4px',height:'6px',width:`${progress}%`,transition:'width 0.3s'}}/>
                 </div>
 
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                   <div>
-                    <p style={{color:'#94a3b8',fontSize:'11px',margin:'0'}}>{formatCLP(debt.installment_amount)}/mes</p>
-                    <p style={{color:'#475569',fontSize:'10px',margin:'2px 0 0'}}>{debt.installments_paid}/{debt.installments_total} cuotas · Total {formatCLP(debt.total_amount)}</p>
+                    <p style={{color:'var(--text2)',fontSize:'11px',margin:'0'}}>{formatCLP(debt.installment_amount)}/mes</p>
+                    <p style={{color:'var(--text4)',fontSize:'10px',margin:'2px 0 0'}}>{debt.installments_paid}/{debt.installments_total} cuotas · Total {formatCLP(debt.total_amount)}</p>
                   </div>
                   {!isPaid && (
                     <button onClick={() => markPaid(debt)}
@@ -172,7 +172,7 @@ export default function DeudasClient({ debts: initialDebts, categories, userId }
                 </div>
 
                 {debt.next_due_date && !isPaid && (
-                  <p style={{color:'#475569',fontSize:'10px',margin:'8px 0 0'}}>
+                  <p style={{color:'var(--text4)',fontSize:'10px',margin:'8px 0 0'}}>
                     Próximo vencimiento: {new Date(debt.next_due_date).toLocaleDateString('es-CL')}
                   </p>
                 )}
