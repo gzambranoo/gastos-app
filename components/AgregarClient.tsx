@@ -66,8 +66,15 @@ export default function AgregarClient({ userId, categories, paymentMethods }: Pr
 
       if (data.description) setDescription(data.description)
       if (data.amount) setAmount(String(data.amount))
-      if (data.type) setType(data.type)
+      if (data.type && (data.type === 'gasto' || data.type === 'ingreso')) setType(data.type)
       if (data.date) setDate(data.date)
+      if (data.categoria_sugerida && categories.length > 0) {
+        const match = categories.find(c =>
+          c.name.toLowerCase().includes(data.categoria_sugerida.toLowerCase()) ||
+          data.categoria_sugerida.toLowerCase().includes(c.name.toLowerCase())
+        )
+        if (match) setCategoryId(match.id)
+      }
       setMessage('✓ Imagen analizada. Revisa y ajusta los datos.')
     } catch {
       setMessage('No se pudo analizar la imagen. Ingresa los datos manualmente.')

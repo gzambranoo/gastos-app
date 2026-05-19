@@ -38,7 +38,13 @@ type Props = {
   currentYear: number
 }
 
-const ICONS = ['🛒','🍔','🚗','💊','⚡','🎬','👕','📚','🏠','✈️','🐾','💰','🎮','🍕','☕','🏋️','💄','🔧','📱','🎁']
+const ICONS = [
+  '🛒','🍔','🚗','💊','⚡','🎬','👕','📚','🏠','✈️',
+  '🐾','💰','🎮','🍕','☕','🏋️','💄','🔧','📱','🎁',
+  '🏦','💳','🍺','🎵','⚽','🏀','🎯','🧴','🐶','🐱',
+  '🌿','🧠','💼','🎓','🏥','🚌','🛵','⛽','🧹','🍷',
+  '🎂','🛏️','🪴','🧺','🔑','💡','🖥️','🎒','🧳','🌊'
+]
 const PAYMENT_TYPES = [
   { value: 'debito', label: 'Débito' },
   { value: 'credito', label: 'Crédito' },
@@ -232,6 +238,18 @@ export default function ConfiguracionClient({ userId, categories, banks, payment
                     {icon}
                   </button>
                 ))}
+                <button
+                  onClick={() => {
+                    const custom = prompt('Escribe o pega un emoji:')
+                    if (custom) setNewCatIcon(custom.trim())
+                  }}
+                  style={{fontSize:'13px',padding:'4px 8px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:'8px',cursor:'pointer',color:'var(--text2)',fontWeight:'600'}}>
+                  + otro
+                </button>
+              </div>
+              <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'10px'}}>
+                <span style={{fontSize:'28px'}}>{newCatIcon}</span>
+                <span style={{fontSize:'12px',color:'var(--text3)'}}>Ícono seleccionado</span>
               </div>
               <div style={{display:'flex',gap:'8px'}}>
                 <input style={inputStyle} value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Nombre categoría" />
