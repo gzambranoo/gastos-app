@@ -15,7 +15,7 @@ type Transaction = {
   payment_methods: { name: string; type: string } | null
 }
 
-type Category = { id: string; name: string; icon: string | null }
+type Category = { id: string; name: string; icon: string | null; subcategories: { id: string; name: string }[] }
 
 type Props = {
   transactions: Transaction[]
